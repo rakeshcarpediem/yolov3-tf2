@@ -82,10 +82,12 @@ def main(_argv):
 
     # Configure the model for transfer learning
     if FLAGS.transfer == 'none':
-        pass  # Nothing to do
-    elif FLAGS.transfer in ['darknet', 'no_output']:
-        # Darknet transfer is a special case that works
-        # with incompatible number of classes
+        try:
+            model.load_weights(FLAGS.weights)
+            print("LOADING OLD WEIGHTS FROM:", FLAGS.weights)
+        except:
+            print("no weights loaded, starting from scracth")
+  
 
         # reset top layers
         if FLAGS.tiny:
